@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103331267196",
+    "project_id": "super-chef-5fa68",
+    "storage_bucket": "super-chef-5fa68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103331267196:android:99b8017a9d0af64b747ff9",
+        "android_client_info": {
+          "package_name": "com.example.recipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103331267196-ol52phefpafd7e1p4d9t7dcsm72gnj8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQRxcyxDj8P-n0Yc0LdS_3jZRqbpB0ctk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103331267196-ol52phefpafd7e1p4d9t7dcsm72gnj8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
