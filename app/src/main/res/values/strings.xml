@@ -25,4 +25,6 @@
     <string name="title_shoppinglist">Shopping list</string>
     <string name="search_text">Add/remove/paste ingredients</string>
     <string name="searchtext">Add/remove/paste ingredients</string>
+    <string name="see_recipe">See Recipe</string>
+    <string name="my_pantry">My Pantry</string>
 </resources>

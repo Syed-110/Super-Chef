@@ -1,8 +1,5 @@
 package com.example.recipe;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -94,7 +94,7 @@ public class LoginPage extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful())
                                 {
-                                    Toast.makeText(LoginPage.this, "Hello ji from login page", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(LoginPage.this, "Hello ji from login page", Toast.LENGTH_SHORT).show();
                                     Log.d("msg","Hello from login");
                                     useremail.setText("");
                                     password.setText("");
