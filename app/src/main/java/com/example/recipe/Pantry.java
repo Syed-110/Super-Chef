@@ -75,11 +75,10 @@ public class Pantry extends Fragment {
         recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         listitem=new ArrayList<>();
         String[] arr={"Dairy","Meat","Poultry"};
+        String[] btn={"Milk","Butter","Butter","Butter"};
         Log.d("msg","Array length is:"+arr.length);
-        for(int i=0;i<=2;i++)
-        {
-            ListItem item=new ListItem("Candidate Id Is:"+(i+1),"Name Of The Candidate Is:"+arr[i]);
-            Log.d("error","Candidate Id Is:"+(i+1)+"Name Of The Candidate Is:"+arr[i]);
+        for(int i=0;i<arr.length;i++){
+            ListItem item=new ListItem(""+arr[i]);
             listitem.add(item);
             radp=new MyAdapter(getActivity(),listitem);
             recycleview.setAdapter(radp);
