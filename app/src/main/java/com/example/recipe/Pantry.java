@@ -6,9 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,15 +81,33 @@ public class Pantry extends Fragment {
         RecyclerView recycleview=rootview.findViewById(R.id.recycler_view);
         recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         listitem=new ArrayList<>();
-        String[] arr={"Dairy","Meat","Poultry"};
-        String[] btn={"Milk","Butter","Butter","Butter"};
-        Log.d("msg","Array length is:"+arr.length);
-        for(int i=0;i<arr.length;i++){
-            ListItem item=new ListItem(""+arr[i]);
-            listitem.add(item);
-            radp=new MyAdapter(getActivity(),listitem);
-            recycleview.setAdapter(radp);
-        }
+        List<String> ingredients_section=new ArrayList<>();
+        DatabaseReference dbref= FirebaseDatabase.getInstance().getReference().child("Ingredients");
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot childSnapshot:snapshot.getChildren()) {
+                    ingredients_section.add(childSnapshot.getKey());
+                    Log.d("msg","Inside Datasnapshot is:"+ingredients_section);
+                    Log.d("msg","Array length is:"+ingredients_section);
+                }
+                String[] dairy_btn={"Milk","Butter","Butter","Butter","Yogurt"};
+                for(int i=0;i<ingredients_section.size();i++){
+                    ListItem item=new ListItem(""+ingredients_section.get(i),dairy_btn);
+                    Log.d("msg","Item is:"+item);
+                    listitem.add(item);
+                    radp=new MyAdapter(getActivity(),listitem);
+                    recycleview.setAdapter(radp);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return rootview;
     }
 }

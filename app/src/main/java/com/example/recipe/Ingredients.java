@@ -1,40 +1,26 @@
 package com.example.recipe;
 
-import android.content.Intent;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class Ingredients extends AppCompatActivity {
     EditText editText;
@@ -42,35 +28,78 @@ public class Ingredients extends AppCompatActivity {
     Button logoutbtn;
     ImageButton search_btn;
     TextView tx1;
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    FrameLayout fl;
+    AppBarLayout appbarlay;
+    RelativeLayout rlv;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment,new Pantry()).commit();
-        BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);;
-        navigation.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragment=null;
-            switch(item.getItemId())
-            {
-                case R.id.navigation_Menu:
-                    fragment=new Menu();
-                    break;
+        appbarlay=findViewById(R.id.appbar);
+        toolbar=findViewById(R.id.toolbar);
+        fl=findViewById(R.id.flFragment);
+        fl.setForeground(null);
+        loadfragment(new Pantry());
+        rlv=findViewById(R.id.relativecollapse);
+        appbarlay.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                    rlv.setVisibility(View.VISIBLE);
+                    rlv.setBackgroundColor(Color.parseColor("#FF03DAC5"));
+                    toolbar.setBackgroundColor(Color.parseColor("#FF03DAC5"));
 
-                case R.id.navigation_favourites:
-                    fragment=new Favourites();
-                    break;
-
-                case R.id.navigation_shoppinglist:
-                    fragment=new Shoppinglist();
-                    break;
-                default:
-                    fragment=new Pantry();
-                    break;
+                } else {
+                    rlv.setVisibility(View.GONE);
+                    rlv.setBackgroundColor(0);
+                    toolbar.setBackgroundColor(0);
+                }
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment,fragment).commit();
-            return true;
         });
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch(item.getItemId())
+                {
+
+                    case R.id.navigation_Menu:
+                        fragment=new Menu();
+                        loadfragment(fragment);
+                        break;
+
+                    case R.id.navigation_favourites:
+
+                        fragment=new Favourites();
+                        loadfragment(fragment);
+                        break;
+
+                    case R.id.navigation_shoppinglist:
+                        fragment=new Shoppinglist();
+                        loadfragment(fragment);
+                        break;
+
+                    default:
+                        fragment=new Pantry();
+                        loadfragment(fragment);
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+    }
+
+    private void loadfragment(Fragment frag)
+    {
+        FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flFragment,frag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

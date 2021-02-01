@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,22 +32,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_ingredientsactivity,parent,false);
-        LinearLayout layout = v.findViewById(R.id.linear_layout);
-        layout.setOrientation(LinearLayout.VERTICAL);  //Can also be done in xml by android:orientation="vertical"
+        TableLayout layout = v.findViewById(R.id.tablelayout);
+        layout.setOrientation(LinearLayout.VERTICAL);
 
-        for (int i = 0; i < 3; i++) {
-            LinearLayout row = new LinearLayout(con);
-            row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            for (int j = 0; j < 3; j++) {
-                ToggleButton btnTag = new ToggleButton(con);
-                btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                btnTag.setText("Button " + (j + 1 + (i * 3)));
-                btnTag.setId(j + 1 + (i * 3));
-                btnTag.setBackgroundDrawable(con.getDrawable(R.drawable.ic_toggle));
-                row.addView(btnTag);
+        int i=0;
+        ListItem lst = listitems.get(i);
+        ToggleButton[][] buttonArray = new ToggleButton[1][lst.getbtn_size()];
+        TableLayout table = new TableLayout(con);
+        for (int row = 0; row < 1; row++) {
+            TableRow currentRow = new TableRow(con);
+            currentRow.setFadingEdgeLength(4);
+            for (int button = 0; button < lst.getbtn_size(); button++) {
+                ToggleButton currentButton = new ToggleButton(con);
+                currentButton.setBackgroundDrawable(con.getDrawable(R.drawable.ic_toggle));
+                currentButton.setText(lst.getBtn(button));
+                currentButton.setTextOn(lst.getBtn(button));
+                currentButton.setTextOff(lst.getBtn(button));
+                // you could initialize them here
+                // you can store them
+                buttonArray[row][button] = currentButton;
+
+                // and you have to add them to the TableRow
+                currentRow.addView(currentButton);
             }
-            layout.addView(row);
+            // a new row has been constructed -> add to table
+            table.addView(currentRow);
         }
+// and finally takes that new table and add it to your layout.
+        layout.addView(table);
         return new ViewHolder(v);
 
     }
