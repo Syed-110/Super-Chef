@@ -2,6 +2,7 @@ package com.example.recipe;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,21 +24,26 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import Adapter.DatabaseHandler;
+
 public class Ingredients extends AppCompatActivity {
     EditText editText;
     ImageView imgv1;
-    Button logoutbtn;
-    ImageButton search_btn;
+    Button opt;
+    ImageButton option;
     TextView tx1;
     FrameLayout fl;
     AppBarLayout appbarlay;
     RelativeLayout rlv;
     Toolbar toolbar;
+    private DatabaseHandler dbh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dbh=new DatabaseHandler(this);
+        opt=findViewById(R.id.ing_col_settings);
         appbarlay=findViewById(R.id.appbar);
         toolbar=findViewById(R.id.toolbar);
         fl=findViewById(R.id.flFragment);
@@ -92,9 +99,16 @@ public class Ingredients extends AppCompatActivity {
                 return true;
             }
         });
-
+        opt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.clear, popup.getMenu());
+                popup.show();
+            }
+        });
     }
-
     private void loadfragment(Fragment frag)
     {
         FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();

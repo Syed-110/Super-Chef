@@ -50,16 +50,17 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="My Ingredients"
+                            android:text="@string/heading"
                             android:textSize="20sp"
                             android:textColor="@color/white"
                             android:textAlignment="center"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="You have 1 ingredients"
+                            android:text="@string/mying"
                             android:textSize="17sp"
                             android:textColor="@color/white"
                             android:textAlignment="center" />
@@ -72,7 +73,8 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/ic_options" />
+                        android:background="@drawable/ic_options"
+                        />
 
                 </RelativeLayout>
 
@@ -166,7 +168,7 @@
                 android:id="@+id/flFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="35dp"/>
+                android:layout_marginBottom="85dp"/>
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -190,5 +192,58 @@
             android:foregroundGravity="bottom"
             />
     </RelativeLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="55dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginStart="15dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/my_pantry"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:paddingStart="30dp"
+                android:gravity="center"
+                android:paddingEnd="5dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero"
+                android:textSize="25sp"
+                android:paddingEnd="30dp"
+                android:textStyle="bold"
+                android:background="@color/teal_200"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginEnd="15dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_recipe"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:paddingStart="30dp"
+                android:paddingEnd="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

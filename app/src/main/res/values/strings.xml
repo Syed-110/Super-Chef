@@ -17,8 +17,8 @@
     <string name="cancel">CANCEL</string>
     <string name="send">Send Password</string>
     <string name="forgot">FORGOT PASSWORD</string>
-    <string name="mying">you have 0 ingredients</string>
-    <string name="heading">My ingredients</string>
+    <string name="mying">You have 0 Ingredients</string>
+    <string name="heading">My Ingredients</string>
     <string name="title_pantry">Pantry</string>
     <string name="title_Menu">Menu</string>
     <string name="title_favourites">Favourites</string>
@@ -26,5 +26,7 @@
     <string name="search_text">Add/remove/paste ingredients</string>
     <string name="searchtext">Add/remove/paste ingredients</string>
     <string name="see_recipe">See Recipe</string>
-    <string name="my_pantry">My Pantry</string>
+    <string name="my_pantry">My Pantry </string>
+    <string name="zero">0</string>
+    <string name="remove">Remove all ingredients</string>
 </resources>

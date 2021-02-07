@@ -36,6 +36,7 @@
                 android:id="@+id/flexbox_layout"
                 app:flexDirection="row"
                 app:flexWrap="wrap"
+                android:paddingStart="29dp"
                 >
             </com.google.android.flexbox.FlexboxLayout>
         </LinearLayout>

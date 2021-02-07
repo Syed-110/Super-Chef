@@ -1,12 +1,15 @@
 package Adapter;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -17,11 +20,13 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
 
+import Model.Ingredient;
 import Model.ListItem;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private Context con;
-    private List<ListItem> listitems;
+    private final Context con;
+    private final List<ListItem> listitems;
+    private DatabaseHandler dbh;
 
     public MyAdapter(Context con, List<ListItem> listitems) {
         this.con = con;
@@ -31,43 +36,85 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        dbh=new DatabaseHandler(con);
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_ingredientsactivity,parent,false);
         return new ViewHolder(v);
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItem lst=listitems.get(position);
         holder.titletv.setText(lst.getTitle());
-        FlexboxLayout layout = holder.flex;
+        FlexboxLayout layout = holder.flb;
 
-        for (int j = 0; j < lst.getbtn_size(); j++) {
-            ToggleButton btnTag = new ToggleButton(con);
-            btnTag.setText(lst.getBtn(j));
-            btnTag.setTextOn(lst.getBtn(j));
-            btnTag.setTextOff(lst.getBtn(j));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(10, 10, 10, 10);
-            btnTag.setLayoutParams(lp);
-            String idname=lst.getTitle()+j;
-            btnTag.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for(int i=0;i<lst.getbtn_size();i++) {
-                        String a="Dairy"+i;
-                        Log.d("msg","Button Name "+a);
-                        switch (v.getId()) {
+        if(lst.getbtn_size()>10) {
+            for(int j=0;j<=10;j++){
+                if(j==10){
+                    Button btnTag=new Button(con);
+                    btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    btnTag.setText("+"+(lst.getbtn_size()-10)+" more");
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(10, 10, 10, 10);
+                    btnTag.setLayoutParams(lp);
+                    btnTag.setBackground(con.getDrawable(R.drawable.ic_normalbutton));
+                    layout.addView(btnTag);
+                    btnTag.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            for(int j=10;j<lst.getbtn_size();j++){
+                                Log.d("msginside","Value of j is:"+j);
+                                create_Togglebtn(layout,lst,j);
+                                layout.removeView(btnTag);
+                            }
                         }
-                    }
+                    });
                 }
-            });
-            Log.d("msg","Idname "+idname);
-            Log.d("msgid", String.valueOf(btnTag.getId()));
-            Log.d("msgadapter","msgadapter"+lst.getBtn(j)+"Value of j is:"+j);
-            btnTag.setBackgroundDrawable(con.getDrawable(R.drawable.ic_toggle));
-            layout.addView(btnTag);
+                else{
+                    create_Togglebtn(layout,lst,j);
+                }
+            }
         }
+        else{
+            for (int j = 0; j < lst.getbtn_size(); j++) {
+                create_Togglebtn(layout,lst,j);
+            }
+        }
+    }
+    public void create_Togglebtn(FlexboxLayout layout,ListItem lst,int j){
+        ToggleButton btnTag = new ToggleButton(con);
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        btnTag.setText(lst.getBtn(j));
+        btnTag.setTextOn(lst.getBtn(j));
+        btnTag.setTextOff(lst.getBtn(j));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(10, 10, 10, 10);
+        btnTag.setLayoutParams(lp);
+        btnTag.setBackgroundDrawable(con.getDrawable(R.drawable.ic_toggle));
+        if(dbh.getIngredient(String.valueOf(btnTag.getText()))){
+            Log.d("ingmsg","Value is:"+dbh.getIngredient(String.valueOf(btnTag.getText())));
+            btnTag.setChecked(true);
+        }
+        btnTag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView.isChecked()){
+                    dbh.addingredients(new Ingredient(String.valueOf(btnTag.getText())));
+                    Toast.makeText(con, btnTag.getText()+" "+dbh.get_count_ingredients(), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    dbh.deleteingredient(new Ingredient(String.valueOf(btnTag.getText())));
+                    Toast.makeText(con,"Else Block", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//        List<Ingredients> ing_list=dbh.getAllingredients();
+//        for(Ingredients ing:ing_list){
+//            String log="Ingredient is:"+ing.getIngredient_name();
+//            Log.d("ingmsg","Log is:"+log);
+//        }
+        layout.addView(btnTag);
     }
 
     @Override
@@ -76,11 +123,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView titletv;
-        FlexboxLayout flex;
+        private final TextView titletv;
+        private final FlexboxLayout flb;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            flex=itemView.findViewById(R.id.flexbox_layout);
+            flb=itemView.findViewById(R.id.flexbox_layout);
             titletv=itemView.findViewById(R.id.titletv);
         }
     }
