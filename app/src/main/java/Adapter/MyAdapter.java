@@ -48,7 +48,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ListItem lst=listitems.get(position);
         holder.titletv.setText(lst.getTitle());
         FlexboxLayout layout = holder.flb;
-
         if(lst.getbtn_size()>10) {
             for(int j=0;j<=10;j++){
                 if(j==10){

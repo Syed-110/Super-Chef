@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -96,6 +97,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query="SELECT * FROM "+ Util.TABLE_NAME;
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cur=db.rawQuery(query,null);
+        Log.d("count","Count"+cur.getCount());
         return cur.getCount();
     }
 
@@ -103,5 +105,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         String query="DELETE FROM "+Util.TABLE_NAME;
         db.execSQL(query);
+        Log.d("del","Message deleted");
     }
 }

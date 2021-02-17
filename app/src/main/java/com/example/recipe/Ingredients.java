@@ -1,7 +1,10 @@
 package com.example.recipe;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +14,15 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,13 +35,16 @@ import Adapter.DatabaseHandler;
 public class Ingredients extends AppCompatActivity {
     EditText editText;
     ImageView imgv1;
-    Button opt;
+    Button opt,opt1;
     ImageButton option;
-    TextView tx1;
+    TextView count;
     FrameLayout fl;
     AppBarLayout appbarlay;
-    RelativeLayout rlv;
+    RelativeLayout rlv,r2v,r3v;
     Toolbar toolbar;
+    LinearLayout pantry,addmore;
+    SharedPreferences ingredients;
+    private  static  final  String sharedprefmsg="mying";
     private DatabaseHandler dbh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +52,43 @@ public class Ingredients extends AppCompatActivity {
         setContentView(R.layout.activity_ingredients);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dbh=new DatabaseHandler(this);
-        opt=findViewById(R.id.ing_col_settings);
+
         appbarlay=findViewById(R.id.appbar);
         toolbar=findViewById(R.id.toolbar);
         fl=findViewById(R.id.flFragment);
         fl.setForeground(null);
         loadfragment(new Pantry());
         rlv=findViewById(R.id.relativecollapse);
+        r3v=findViewById(R.id.pantrysecondview);
+        pantry=findViewById(R.id.pantrylayout);
+        pantry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment,new SelectedItem()).addToBackStack(null).commit();
+                r2v.setVisibility(View.INVISIBLE);
+                r3v.setVisibility(View.VISIBLE);
+            }
+        });
+
+        r2v=findViewById(R.id.secondview);
+        r2v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("layout","layout clicked");
+                r2v.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        addmore=findViewById(R.id.pantrysecondlayout);
+        addmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment,new Pantry()).addToBackStack(null).commit();
+                r3v.setVisibility(View.INVISIBLE);
+                r2v.setVisibility(View.VISIBLE);
+            }
+        });
+
         appbarlay.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -76,36 +115,54 @@ public class Ingredients extends AppCompatActivity {
 
                     case R.id.navigation_Menu:
                         fragment=new Menu();
+                        r2v.setVisibility(View.INVISIBLE);
                         loadfragment(fragment);
                         break;
 
                     case R.id.navigation_favourites:
-
                         fragment=new Favourites();
+                        r2v.setVisibility(View.INVISIBLE);
                         loadfragment(fragment);
                         break;
 
                     case R.id.navigation_shoppinglist:
                         fragment=new Shoppinglist();
+                        r2v.setVisibility(View.INVISIBLE);
                         loadfragment(fragment);
                         break;
 
-                    default:
+                    case R.id.navigation_pantry:
                         fragment=new Pantry();
+                        r2v.setVisibility(View.VISIBLE);
                         loadfragment(fragment);
                         break;
                 }
-
                 return true;
             }
         });
-        opt.setOnClickListener(new View.OnClickListener() {
+    }
+    @SuppressLint("RestrictedApi")
+    public void popup(View v){
+        @SuppressLint("RestrictedApi") MenuBuilder menuBuilder =new MenuBuilder(getApplicationContext());
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.clear, menuBuilder);
+        @SuppressLint("RestrictedApi") MenuPopupHelper optionsMenu = new MenuPopupHelper(this, menuBuilder, v);
+        optionsMenu.setForceShowIcon(true);
+        optionsMenu.show();
+        menuBuilder.setCallback(new MenuBuilder.Callback() {
             @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.clear, popup.getMenu());
-                popup.show();
+            public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
+                if(item.getItemId()==R.id.remove_ing){
+                    dbh.deleteallingredients();
+                    loadfragment(new Pantry());
+                    Toast.makeText(Ingredients.this, "All ingredients deleted", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+
+            @Override
+            public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
             }
         });
     }

@@ -4,5 +4,6 @@
         android:id="@+id/remove_ing"
         android:title="@string/remove"
         android:icon="@drawable/ic_baseline_delete"
+        android:iconTint="@color/black"
         />
 </menu>
