@@ -1,12 +1,13 @@
 package com.example.recipe;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +20,7 @@ public class Shoppinglist extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    TextView t1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +61,15 @@ public class Shoppinglist extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shoppinglist, container, false);
+        View view=inflater.inflate(R.layout.fragment_shoppinglist, container, false);
+        t1=view.findViewById(R.id.textview);
+        Bundle bundle=getArguments();
+        String data = null;
+        if (bundle != null) {
+            data = bundle.getString("List");
+            Toast.makeText(getContext(), "Data"+data, Toast.LENGTH_SHORT).show();
+        }
+        t1.setText(data);
+        return view;
     }
 }

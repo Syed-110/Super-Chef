@@ -1,4 +1,5 @@
 package Adapter;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -45,8 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         dbh=new DatabaseHandler(con);
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_ingredientsactivity,parent,false);
-        return new MyAdapter.ViewHolder(v);
-
+        return new ViewHolder(v);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -62,13 +62,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             for(int j=0;j<=10;j++){
                 if(j==10){
                     Button btnTag=new Button(con);
-                    btnTag.setText("+"+(lst.getbtn_size()-10)+"more");
+                    btnTag.setText("+"+(lst.getbtn_size()-10)+" more");
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 100);
                     lp.setMargins(10, 10, 10, 10);
                     btnTag.setLayoutParams(lp);
                     btnTag.setPadding(25,0,25,0);
                     btnTag.setBackground(con.getDrawable(R.drawable.ic_normalbutton));
                     layout.addView(btnTag);
+                    btnTag.setClickable(false);
+                    btnTag.setTextSize(15);
                     btnTag.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -84,7 +86,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                             }
                         }
                     });
-                    btnTag.setTextSize(15);
                     holder.collapseexpandbut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -130,8 +131,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    @SuppressLint("SetTextI18n")
-    public void create_Togglebtn(FlexboxLayout layout, ListItem lst, int j, TextView count_text){
+    public void create_Togglebtn(FlexboxLayout layout,ListItem lst,int j,TextView count_text){
         ToggleButton btnTag = new ToggleButton(con);
         btnTag.setText(lst.getBtn(j));
         btnTag.setTextOn(lst.getBtn(j));

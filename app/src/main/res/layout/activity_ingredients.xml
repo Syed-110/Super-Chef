@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:fitsSystemWindows="true"
-                android:background="@color/teal_200"
+                android:background="#FF03DAC5"
                 app:expandedTitleTextAppearance="@style/ThemeOverlay.AppCompat"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
@@ -159,7 +159,7 @@
                 android:id="@+id/pantry_frag_lay"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/teal_200"
+                android:background="#FF03DAC5"
                 android:visibility="gone"
                 >
 

@@ -81,8 +81,8 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
                     rlv.setVisibility(View.VISIBLE);
-                    rlv.setBackgroundColor(Color.parseColor("#FF03DAC5"));
-                    toolbar.setBackgroundColor(Color.parseColor("#FF03DAC5"));
+                    rlv.setBackgroundColor(Color.parseColor("#D7456A"));
+                    toolbar.setBackgroundColor(Color.parseColor("#D7456A"));
 
                 } else {
                     rlv.setVisibility(View.GONE);
@@ -232,8 +232,6 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                 SharedPreferences.Editor editor=shpmsgvar.edit();
                 editor.putString("message","selectedingredients");
                 loadfragment(new SelectedItem());
-                appbarlay.setExpanded(true);
-                nsv.setNestedScrollingEnabled(false);
                 collapsetoolbar.setVisibility(View.GONE);
                 pantryfragrellay.setVisibility(View.VISIBLE);
                 tv1.setText("+ Add More");
@@ -244,7 +242,6 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                 SharedPreferences.Editor editor=shpmsgvar.edit();
                 editor.putString("message","pantry");
                 loadfragment(new Pantry());
-                nsv.setNestedScrollingEnabled(true);
                 collapsetoolbar.setVisibility(View.VISIBLE);
                 pantryfragrellay.setVisibility(View.GONE);
                 tv1.setText("My Pantry");
@@ -266,7 +263,6 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                 SharedPreferences.Editor editor=shpmsgvar.edit();
                 editor.putString("message","pantry");
                 loadfragment(new Pantry());
-                nsv.setNestedScrollingEnabled(true);
                 collapsetoolbar.setVisibility(View.VISIBLE);
                 pantryfragrellay.setVisibility(View.GONE);
                 tv1.setText("My Pantry");
