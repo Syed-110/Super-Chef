@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/ivImage"
+        android:src="@drawable/bgimage"
+        android:scaleType="centerCrop"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Prepare Time"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txtprepTime"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Cook Time"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txtcookTime"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Total Time"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txttotalTime"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Ingredients"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txting"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Instruction"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txtinst"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        >
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:textColor="@color/black"
+            android:text="Update"
+            android:textSize="15sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="25dp"
+            />
+
+    </RelativeLayout>
+</LinearLayout>

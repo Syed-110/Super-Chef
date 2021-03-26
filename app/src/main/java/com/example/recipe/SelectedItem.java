@@ -24,6 +24,7 @@ public class SelectedItem extends Fragment implements  DatatransferInterface {
     private RecyclerView.Adapter radp;
     Fragmenttoactivity fragact;
     private LinearLayout animatelinearlay;
+    RecyclerView recycleview;
     Button addingredients;
 
     @Override
@@ -56,9 +57,16 @@ public class SelectedItem extends Fragment implements  DatatransferInterface {
 
         // Inflate the layout for this fragment
         View rootview=inflater.inflate(R.layout.fragment_selected_item, container, false);
-        addingredients=rootview.findViewById(R.id.addingredients);
         animatelinearlay=rootview.findViewById(R.id.nocontlinearlay);
-        RecyclerView recycleview=rootview.findViewById(R.id.recyclerview1);
+        addingredients=rootview.findViewById(R.id.addingredients);
+        addingredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getContext(), Ingredients.class);
+                startActivity(i);
+            }
+        });
+        recycleview=rootview.findViewById(R.id.recyclerview1);
         recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         dbh=new DatabaseHandler(getContext());
         Log.d("mstag","Array is:"+dbh.get_records());
@@ -73,13 +81,6 @@ public class SelectedItem extends Fragment implements  DatatransferInterface {
             recycleview.setVisibility(View.GONE);
             animatelinearlay.setVisibility(View.VISIBLE);
         }
-        addingredients.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(getActivity(),Ingredients.class);
-                startActivity(i);
-            }
-        });
         return rootview;
     }
 
@@ -87,5 +88,9 @@ public class SelectedItem extends Fragment implements  DatatransferInterface {
     public void setCount(int count) {
         fragact.communicate(count);
         Log.d("msgtag","count from setcout is:"+count);
+        if(count<=0){
+            recycleview.setVisibility(View.GONE);
+            animatelinearlay.setVisibility(View.VISIBLE);
+        }
     }
 }

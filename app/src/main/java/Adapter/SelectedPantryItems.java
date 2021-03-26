@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import Model.Ingredient;
 import Model.SelectedPantryModel;
+import Model.addtocart;
 
 
 public class SelectedPantryItems extends RecyclerView.Adapter<SelectedPantryItems.ViewHolder>{
@@ -76,24 +77,6 @@ public class SelectedPantryItems extends RecyclerView.Adapter<SelectedPantryItem
                 RelativeLayout.LayoutParams sub_item_delete_btn_params= new RelativeLayout.LayoutParams(70, 70);
                 sub_item_delete_btn.setId(R.id.delete_btn);
 
-
-                sub_item_delete_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String ing_name=String.valueOf(sub_item_name.getText());
-                        String ing_section=String.valueOf(holder.tv.getText());
-                        dbh.deleteingredient(new Ingredient(String.valueOf(sub_item_name.getText())));
-                        if(!dbh.getIngredient(ing_name)){
-                            holder.linearlay.removeView(sub_relative_item_lay);
-                        }
-                        if(dbh.get_ing_name(ing_section)<=0){
-                            holder.linear_main_lay.removeAllViews();
-                        }
-
-                        dtf.setCount(dbh.get_count_ingredients());
-                    }
-                });
-
                 View sub_item_line= new View(con);
                 RelativeLayout.LayoutParams sub_item_line_params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
                 sub_item_line.setId(R.id.item_view_line);
@@ -104,7 +87,7 @@ public class SelectedPantryItems extends RecyclerView.Adapter<SelectedPantryItem
                 sub_item_name.setLayoutParams(sub_item_name_params);
 
                 sub_item_shopping_btn_params.addRule(RelativeLayout.START_OF, sub_item_delete_btn.getId());
-                sub_item_shopping_btn.setBackground(ContextCompat.getDrawable(con, R.drawable.add_shopping_cart));
+                sub_item_shopping_btn.setBackground(ContextCompat.getDrawable(con, R.drawable.ic_addto_cart));
                 sub_item_shopping_btn.setLayoutParams(sub_item_shopping_btn_params);
 
                 sub_item_delete_btn_params.setMargins(10, 0, 10, 0);
@@ -121,6 +104,59 @@ public class SelectedPantryItems extends RecyclerView.Adapter<SelectedPantryItem
                 sub_relative_item_lay.addView(sub_item_shopping_btn);
                 sub_relative_item_lay.addView(sub_item_delete_btn);
                 sub_relative_item_lay.addView(sub_item_line);
+
+                if(dbh.getIngredient_cart(lst.getBtn(i))){
+                    sub_item_shopping_btn.setBackground(ContextCompat.getDrawable(con, R.drawable.ic_addedtocart));
+                    sub_item_shopping_btn.setLayoutParams(sub_item_shopping_btn_params);
+                }
+
+                sub_item_delete_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String ing_name=String.valueOf(sub_item_name.getText());
+                        String ing_section=String.valueOf(holder.tv.getText());
+
+
+
+                        if(dbh.getIngredient(ing_name)){
+                            Log.d("deleteddata","parent before delete is:"+sub_relative_item_lay.getParent());
+                            holder.linearlay.removeView(sub_relative_item_lay);
+                            Log.d("deletedata","parent after delete is:"+sub_relative_item_lay.getParent());
+                        }
+
+                        dbh.deleteingredient(new Ingredient(String.valueOf(sub_item_name.getText())));
+
+                        if(dbh.get_ing_name(ing_section)<=0){
+                            Log.d("delete","count is:"+dbh.get_ing_name(ing_section));
+                            Log.d("deleteddata","parent before delete is:"+sub_relative_item_lay.getParent());
+                            holder.linear_main_lay.removeAllViews();
+                            Log.d("deletedata","parent after delete is:"+sub_relative_item_lay.getParent());
+                        }
+
+
+                        dtf.setCount(dbh.get_count_ingredients());
+                    }
+                });
+
+                sub_item_shopping_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!dbh.getIngredient_cart(String.valueOf(sub_item_name.getText()))){
+                            Log.d("msgtag","hello");
+                            sub_item_shopping_btn.setBackground(ContextCompat.getDrawable(con, R.drawable.ic_addedtocart));
+                            dbh.add_Ingredients_cart(new addtocart(sub_item_name.getText().toString(),"tobuy"));
+                            sub_item_shopping_btn.setLayoutParams(sub_item_shopping_btn_params);
+                        }
+                        else{
+                            Log.d("msgtag","hello from else");
+                            dbh.deleteingredient_cart(new addtocart(sub_item_name.getText().toString()));
+                            sub_item_shopping_btn.setBackground(ContextCompat.getDrawable(con, R.drawable.ic_addto_cart));
+                            sub_item_shopping_btn.setLayoutParams(sub_item_shopping_btn_params);
+                        }
+                    }
+                });
+
+
             }
 
     }

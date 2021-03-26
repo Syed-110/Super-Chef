@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/rohitImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="147dp"
+                android:layout_marginTop="90dp"
+                android:src="@drawable/bgimage" />
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Syed Mohammed Mujtaba"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/ic_baseline_email" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textIsSelectable="true"
+                android:textStyle="bold"
+                android:text="Support: itsblakedyed@gmail.com"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/instabtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="190dp"
+                android:src="@drawable/instagram" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instagram"
+                android:layout_marginTop="240dp"
+                android:layout_marginLeft="-55dp"/>
+
+            <ImageView
+                android:id="@+id/fbbtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="190dp"
+                android:src="@drawable/facebook" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facebook"
+                android:layout_marginTop="240dp"
+                android:layout_marginLeft="-55dp"/>
+
+            <ImageView
+                android:id="@+id/linkedinbtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="190dp"
+                android:src="@drawable/linkedin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Linked In"
+                android:layout_marginTop="240dp"
+                android:layout_marginLeft="-55dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

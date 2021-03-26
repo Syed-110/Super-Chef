@@ -1,8 +1,6 @@
 package com.example.recipe;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +10,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton googlesignbtn;
     private int RC_SIGN_IN=101;
     private GoogleSignInClient mgooglesigninclient;
-    private FirebaseAuth mauth;
+    FirebaseUser firebaseUser;
+    private FirebaseAuth mauth=FirebaseAuth.getInstance();
     private TextView anonymoussignin;
     private  static  final  String sharedprefmsg="myprefsfile";
     private SharedPreferences shredlogret;
@@ -42,29 +44,25 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser curreUser=mauth.getCurrentUser();
         GoogleSignInAccount account= GoogleSignIn.getLastSignedInAccount(this);
-        if(account!=null)
-        {
-            Log.d("errormsg","from start of MainActivity Curreuser"+curreUser.getEmail());
+
+        if(account!=null) {
+            Log.d("emailid","email"+account.getEmail());
+            Toast.makeText(this, "Email: "+account.getEmail(), Toast.LENGTH_SHORT).show();
+//            Log.d("errormsg","from start of MainActivity Curreuser"+curreUser.getEmail());
             startActivity(new Intent(getApplicationContext(), Ingredients.class));
         }
-        else if(curreUser!=null)
-        {
-            if(curreUser.isAnonymous())
-            {
+        else if(curreUser!=null) {
+            if(curreUser.isAnonymous()) {
                 Log.d("msg","From anooymous condition check");
                 startActivity(new Intent(getApplicationContext(), Ingredients.class));
-            }
-            else
-            {
+            } else {
                 SharedPreferences shpret=getSharedPreferences(sharedprefmsg,0);
-                if(shpret.contains("message"))
-                {
+
+                if(shpret.contains("message")) {
                     startActivity(new Intent(getApplicationContext(), Ingredients.class));
                 }
             }
         }
-
-
     }
 
     @Override
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         anonymoussignin=findViewById(R.id.guestsignin);
         mauth=FirebaseAuth.getInstance();
         processRequest();
-
 
         anonymoussignin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,10 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 processlogin();
             }
         });
-
     }
-
-
 
     private void processRequest() {
         //Creating a process request
@@ -129,6 +123,21 @@ public class MainActivity extends AppCompatActivity {
     private void processlogin() {
         //Calling the google signin dialog box with intent and using requestcode for acknowledgement.
         Intent signInIntent = mgooglesigninclient.getSignInIntent();
+        firebaseUser= mauth.getCurrentUser();
+        if (firebaseUser != null && firebaseUser.isAnonymous()) {
+            String googleIdToken = "101";
+            AuthCredential credential = GoogleAuthProvider.getCredential(googleIdToken, null);
+            mauth.getCurrentUser().linkWithCredential(credential).addOnCompleteListener((Activity) getApplicationContext(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, "User Name" + mauth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Else Block", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 

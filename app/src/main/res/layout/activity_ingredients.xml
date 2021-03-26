@@ -92,7 +92,7 @@
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/dialog_shape"
-                        android:drawableStart="@drawable/ic_search"
+                        android:drawableEnd="@drawable/ic_search"
                         android:hint="@string/searchtext"
                         android:padding="17dp" />
 
@@ -131,7 +131,7 @@
                             android:layout_toLeftOf="@id/ing_settings"
                             android:layout_toRightOf="@id/ing_user"
                             android:background="@drawable/dialog_shape"
-                            android:drawableLeft="@drawable/ic_search"
+                            android:drawableRight="@drawable/ic_search"
                             android:drawablePadding="17dp"
                             android:elevation="5dp"
                             android:hint="@string/searchtext"

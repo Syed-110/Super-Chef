@@ -34,4 +34,15 @@
     <string name="addmore">+ Add more</string>
     <string name="heading1">My Pantry</string>
     <string name="add">Add Ingredients</string>
+    <string name="empty_list">The shopping list is empty</string>
+    <string name="inmylist">What\'s in my list</string>
+    <string name="got">What I got</string>
+    <string name="completed">Clear Completed</string>
+    <string name="all">Clear All</string>
+    <string name="name">Name</string>
+    <string name="Logout">Logout</string>
+    <string name="save">Save</string>
+    <string name="change">Change Profile</string>
+    <string name="yourname">Your Name</string>
+    <string name="youremail">Your Email</string>
 </resources>

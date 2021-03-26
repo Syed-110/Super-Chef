@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UploadRecipe">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/gradient_1">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/iv_foodImage"
+            android:src="@drawable/index"/>
+        <EditText
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipe Name"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/text_preptime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prep Time"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/text_cooktime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cook Time"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/text_totaltime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Total Time"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/text_ing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingredients"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/text_ins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Instruction"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/capsuleshapedbutton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Select Image"
+            android:textSize="22dp"
+            android:onClick="btnSelectImage"
+            android:background="@drawable/capsuleshapedbutton"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Upload Recipe"
+            android:textSize="22dp"
+            android:onClick="btnUploadImage"
+            android:background="@drawable/capsuleshapedbutton"
+            />
+    </LinearLayout>
+
+</ScrollView>

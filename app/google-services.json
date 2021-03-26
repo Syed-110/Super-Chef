@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "103331267196",
+    "firebase_url": "https://super-chef-5fa68-default-rtdb.firebaseio.com",
     "project_id": "super-chef-5fa68",
     "storage_bucket": "super-chef-5fa68.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "103331267196-njniudm72crbi0h3b8qtfjtmbhis140q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.recipe",
+            "certificate_hash": "3220e6585d367171cc9ff22530dff47b8f84b479"
+          }
+        },
         {
           "client_id": "103331267196-ol52phefpafd7e1p4d9t7dcsm72gnj8o.apps.googleusercontent.com",
           "client_type": 3

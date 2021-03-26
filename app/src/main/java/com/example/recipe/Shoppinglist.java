@@ -1,26 +1,51 @@
 package com.example.recipe;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import Adapter.CartItem;
+import Adapter.DatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Shoppinglist#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Shoppinglist extends Fragment {
+public class Shoppinglist extends Fragment implements Datainterface_shoppinglist {
+
+    private RecyclerView.Adapter radp;
+    private LinearLayout animatelinearlay;
+    private DatabaseHandler dbh;
+    int count=0;
+    private RecyclerView recycleview;
+    fragtoactivityshoppinglist fragact;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            fragact= (fragtoactivityshoppinglist) context;
+        }
+        catch (ClassCastException e){
+            throw new ClassCastException(context.toString()+"must implement fragment");
+        }
+    }
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    TextView t1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -28,6 +53,12 @@ public class Shoppinglist extends Fragment {
 
     public Shoppinglist() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onDetach() {
+        fragact=null;
+        super.onDetach();
     }
 
     /**
@@ -57,19 +88,42 @@ public class Shoppinglist extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_shoppinglist, container, false);
-        t1=view.findViewById(R.id.textview);
-        Bundle bundle=getArguments();
-        String data = null;
-        if (bundle != null) {
-            data = bundle.getString("List");
-            Toast.makeText(getContext(), "Data"+data, Toast.LENGTH_SHORT).show();
+        View rootview=inflater.inflate(R.layout.fragment_shoppinglist, container, false);
+        animatelinearlay=rootview.findViewById(R.id.nocontlinearlay);
+        recycleview=rootview.findViewById(R.id.recyclerview1);
+        recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        dbh=new DatabaseHandler(getContext());
+        Log.d("mstag","Array is:"+dbh.get_records());
+        Log.d("msgtag","length is:"+dbh.get_count_ingredients());
+        if(dbh.get_count_ingredients_cart()>0){
+            recycleview.setVisibility(View.VISIBLE);
+            animatelinearlay.setVisibility(View.GONE);
+            Log.d("msgtag","records are:"+dbh.get_records_cart());
+            radp=new CartItem(getActivity(),dbh.get_records_cart(),this);
+            recycleview.setAdapter(radp);
         }
-        t1.setText(data);
-        return view;
+        else{
+            recycleview.setVisibility(View.GONE);
+            animatelinearlay.setVisibility(View.VISIBLE);
+        }
+        return rootview;
     }
+
+    public void setcount(int count) {
+        fragact.communicate_shoppinglist(count);
+        this.count=count;
+        Log.d("count","count from shoppinglist  is:"+count);
+        Log.d("msgtag","count from setcout is:"+count);
+        if(count<=0){
+            recycleview.setVisibility(View.GONE);
+            animatelinearlay.setVisibility(View.VISIBLE);
+        }
+    }
+
+
 }
