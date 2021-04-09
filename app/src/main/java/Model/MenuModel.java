@@ -8,6 +8,7 @@ public class MenuModel {
     private String itemImage;
     private String itemIngredients;
     private String itemInstruction;
+    private String key;
 
 
     public MenuModel(String itemName, String cookTime, String prepTime, String totalTime, String itemImage, String itemIngredients, String itemInstruction) {
@@ -86,5 +87,13 @@ public class MenuModel {
 
     public void setItemInstruction(String itemInstruction) {
         this.itemInstruction = itemInstruction;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

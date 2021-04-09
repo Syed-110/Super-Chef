@@ -49,7 +49,7 @@ import Adapter.DatabaseHandler;
 public class Ingredients extends AppCompatActivity implements Fragmenttoactivity, fragtoactivityshoppinglist, GoogleApiClient.OnConnectionFailedListener {
     TextView counttv,butcounttv,ing_search,counttexttv,mying,search;
     FrameLayout fl;
-    Button backbtn,col_setting,ing_setting,ing_col_user;
+    Button backbtn,col_setting,ing_setting,ing_col_user,ing_user;
     AppBarLayout appbarlay;
     EditText search_icon;
     int flag=0;
@@ -59,7 +59,7 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
     CollapsingToolbarLayout collapsetoolbar;
     private DatabaseHandler dbh;
     TextView tv1,tv2,seerecipe;
-    LinearLayout linearlay;
+    LinearLayout linearlay,linearaddrecipe;
     SharedPreferences shpmsgvar,shpmsgret;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
@@ -105,6 +105,25 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
         tv1=findViewById(R.id.mypantrytext);
         tv2=findViewById(R.id.mypantrycount);
         seerecipe=findViewById(R.id.seerecipe);
+        linearaddrecipe=findViewById(R.id.linearaddrecipes);
+        linearaddrecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                col_setting.setVisibility(View.GONE);
+                pantryfragrellay.setVisibility(View.GONE);
+                collapsetoolbar.setVisibility(View.GONE);
+                ing_setting.setVisibility(View.GONE);
+                mying.setText("Super Cook");
+                ing_search.setHint("Search for anything");
+                search.setHint("Search for anything");
+                toolbar.setVisibility(View.VISIBLE);
+                nsv.setNestedScrollingEnabled(true);
+                counttv.setVisibility(View.GONE);
+                Fragment fragment=new Menu();
+                loadfragment(fragment);
+                linearlay.setVisibility(View.GONE);
+            }
+        });
 
 
         ing_search=findViewById(R.id.ing_col_search);
@@ -112,12 +131,40 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
         ing_setting=findViewById(R.id.ing_settings);
         mying=findViewById(R.id.mying);
         search=findViewById(R.id.ing_search);
+        ing_search.setVisibility(View.GONE);
+        search.setVisibility(View.GONE);
         ing_col_user=findViewById(R.id.ing_col_user);
+        ing_user=findViewById(R.id.ing_user);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
-
+        ing_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoogleSignInAccount account= GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                    if (mGoogleApiClient != null && mGoogleApiClient.isConnected()){
+                        firebaseUser = firebaseAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            if (firebaseUser.isAnonymous()) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                //Toast.makeText(getApplicationContext(), "Logout Successfully! From Anonymous", Toast.LENGTH_SHORT).show();
+                                startActivity(i);
+                            }
+                            else if (account != null) {
+                                Intent i1 = new Intent(getApplicationContext(), ShowProfile.class);
+                                startActivity(i1);
+                            }
+                            else {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent i1 = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i1);
+                            }
+                        }
+                    }
+            }
+        });
         ing_col_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -128,23 +175,17 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                             if (firebaseUser.isAnonymous()) {
                                 FirebaseAuth.getInstance().signOut();
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                Toast.makeText(getApplicationContext(), "Logout Successfully! From Anonymous", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "Logout Successfully! From Anonymous", Toast.LENGTH_SHORT).show();
                                 startActivity(i);
                             }
                             else if (account != null) {
                                 Intent i1 = new Intent(getApplicationContext(), ShowProfile.class);
                                 startActivity(i1);
-//                                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-//                                    @Override
-//                                    public void onResult(Status status) {
-//                                        FirebaseAuth.getInstance().signOut();
-//                                        Intent i1 = new Intent(getApplicationContext(), Profile.class);
-//                                            //Toast.makeText(getApplicationContext(), "Logout Successfully! From Google", Toast.LENGTH_SHORT).show();
-//                                        Log.d("emailid", "email" + account.getEmail());
-//                                        Toast.makeText(getApplicationContext(), "Email" + account.getEmail(), Toast.LENGTH_SHORT).show();
-//                                        startActivity(i1);
-//                                    }
-//                                });
+                            }
+                            else {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent i1 = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i1);
                             }
                         }
                     }
@@ -261,7 +302,7 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                         mying.setText("Super Cook");
                         ing_search.setHint("Search for anything");
                         search.setHint("Search for anything");
-                        toolbar.setVisibility(View.VISIBLE);
+//                        toolbar.setVisibility(View.GONE);
                         nsv.setNestedScrollingEnabled(true);
                         counttv.setVisibility(View.GONE);
                         fragment=new Menu();
@@ -269,28 +310,28 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                         linearlay.setVisibility(View.GONE);
                         break;
 
-                    case R.id.navigation_favourites:
-                        flag=0;
-                        ing_search.setHint("Find...");
-                        pantryfragrellay.setVisibility(View.GONE);
-                        col_setting.setVisibility(View.GONE);
-                        collapsetoolbar.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        counttv.setVisibility(View.VISIBLE);
-                        mying.setText("Favourites");
-                        nsv.setNestedScrollingEnabled(false);
-                        counttv.setText("You have 0 Favourites");
-                        counttexttv.setText("You have 0 Favourites");
-                        fragment=new Favourites();
-                        loadfragment(fragment);
-                        linearlay.setVisibility(View.GONE);
-                        break;
+//                    case R.id.navigation_favourites:
+//                        flag=0;
+//                        ing_search.setHint("Find...");
+//                        pantryfragrellay.setVisibility(View.GONE);
+//                        col_setting.setVisibility(View.GONE);
+//                        collapsetoolbar.setVisibility(View.VISIBLE);
+//                        toolbar.setVisibility(View.GONE);
+//                        counttv.setVisibility(View.VISIBLE);
+//                        mying.setText("Favourites");
+//                        nsv.setNestedScrollingEnabled(false);
+//                        counttv.setText("You have 0 Favourites");
+//                        counttexttv.setText("You have 0 Favourites");
+//                        fragment=new Favourites();
+//                        loadfragment(fragment);
+//                        linearlay.setVisibility(View.GONE);
+//                        break;
 
                     case R.id.navigation_shoppinglist:
                         flag=1;
                         ing_search.setHint("Add something");
                         col_setting.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
+//                        toolbar.setVisibility(View.GONE);
                         counttv.setVisibility(View.VISIBLE);
                         mying.setText("Shopping List");
                         counttexttv.setText("You have "+dbh.get_count_ingredients_cart()+" items in the list");
@@ -312,13 +353,15 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                             checkPantry(getWindow().getDecorView().getRootView());
                         }
-                        ing_search.setHint("Add/remove/paste ingredients");
-                        search.setHint("Add/remove/paste ingredients");
+//                        ing_search.setHint("Add/remove/paste ingredients");
+//                        search.setHint("Add/remove/paste ingredients");
+                        ing_search.setVisibility(View.GONE);
+                        search.setVisibility(View.GONE);
                         collapsetoolbar.setVisibility(View.VISIBLE);
                         col_setting.setVisibility(View.VISIBLE);
                         ing_setting.setVisibility(View.VISIBLE);
                         counttv.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.VISIBLE);
+//                        toolbar.setVisibility(View.GONE);
                         mying.setText("My Ingredients");
                         nsv.setNestedScrollingEnabled(true);
                         fragment=new Pantry();
@@ -446,6 +489,8 @@ public class Ingredients extends AppCompatActivity implements Fragmenttoactivity
                 SharedPreferences.Editor editor=shpmsgvar.edit();
                 editor.putString("message","pantry");
                 mying.setText("My Ingredients");
+                ing_search.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
                 loadfragment(new Pantry());
                 collapsetoolbar.setVisibility(View.VISIBLE);
                 pantryfragrellay.setVisibility(View.GONE);

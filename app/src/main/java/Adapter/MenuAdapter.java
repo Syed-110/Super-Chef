@@ -48,6 +48,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(con, DetailActivity.class);
+                intent.putExtra("name",myList.get(position).getItemName());
+                intent.putExtra("key",myList.get(position).getKey());
                 intent.putExtra("Image",myList.get(holder.getAdapterPosition()).getItemImage());
                 intent.putExtra("PrepTime",myList.get(holder.getAdapterPosition()).getPrepTime());
                 intent.putExtra("CookTime",myList.get(holder.getAdapterPosition()).getCookTime());
@@ -59,6 +61,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
         });
         setAnimation(holder.itemView,position);
     }
+
     public void setAnimation(View viewToAnimate,int position){
         if(position>lastPosition){
             ScaleAnimation animation=new ScaleAnimation(0.0f,1.0f,0.0f,1.0f,

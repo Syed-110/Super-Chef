@@ -20,6 +20,7 @@
             android:src="@drawable/index"/>
         <EditText
             android:id="@+id/text_name"
+            android:paddingStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Recipe Name"
@@ -29,6 +30,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
         <EditText
+            android:paddingStart="20dp"
             android:id="@+id/text_preptime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
         <EditText
+            android:paddingStart="20dp"
             android:id="@+id/text_cooktime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +52,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
         <EditText
+            android:paddingStart="20dp"
             android:id="@+id/text_totaltime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,6 +63,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
         <EditText
+            android:paddingStart="20dp"
             android:id="@+id/text_ing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,6 +74,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"/>
         <EditText
+            android:paddingStart="20dp"
             android:id="@+id/text_ins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

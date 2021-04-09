@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN_TIME_OUT=1000;
+    private static int SPLASH_SCREEN_TIME_OUT=6000;
     private ImageView imgview;
     private  static  final  String sharedprefmsg="myprefsfile";
 

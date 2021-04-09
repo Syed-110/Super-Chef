@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -52,7 +51,6 @@ public class Menu extends Fragment {
     private String newestPostId;
     private String oldestPostId;
     private int startAt = 0;
-    private SwipeRefreshLayout swipeRefreshLayout;
     EditText txt_Search;
     MenuAdapter adapter;
     MenuModel mData=new MenuModel();
@@ -100,7 +98,6 @@ public class Menu extends Fragment {
         View v= inflater.inflate(R.layout.fragment_menu, container, false);
         mRecyclerView=v.findViewById(R.id.menurecycler);
         txt_Search=v.findViewById(R.id.txt_searchtext);
-        swipeRefreshLayout =v.findViewById(R.id.swipeRefreshLayout);
         floatingActionButton=v.findViewById(R.id.floatingbtn);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +143,7 @@ public class Menu extends Fragment {
 //                progressDialog.dismiss();
 //            }
 //        });
-        query= FirebaseDatabase.getInstance().getReference("Recipe").orderByChild("3 ingredient choco bar recipe nutty chocobar ice cream 3 ways choco bar").limitToFirst(50);
+        query= FirebaseDatabase.getInstance().getReference("Recipe").orderByChild("3 ingredient choco bar recipe nutty chocobar ice cream 3 ways choco bar").limitToFirst(150);
         progressDialog.show();
         valueEventListener=query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,6 +151,8 @@ public class Menu extends Fragment {
                 list.clear();
                 for(DataSnapshot itemSnapshot:snapshot.getChildren()){
                     String recipe_name= itemSnapshot.getKey();
+                    MenuModel menuModel=new MenuModel();
+                    menuModel.setKey(recipe_name);
                     if(itemSnapshot.child("itemImage").getValue()!=null && itemSnapshot.child("itemInstruction").getValue()!=null && itemSnapshot.child("itemIngredients").getValue()!=null && itemSnapshot.child("prepTime").getValue()!=null && itemSnapshot.child("cookTime").getValue()!=null && itemSnapshot.child("totalTime").getValue()!=null){
                         String ingredients=itemSnapshot.child("itemIngredients").getValue().toString();
                         String instruction=itemSnapshot.child("itemInstruction").getValue().toString();
@@ -164,7 +163,6 @@ public class Menu extends Fragment {
                         MenuModel menuModel1=new MenuModel(recipe_name,cook_time,prep_time,total_time,image,ingredients,instruction);
                         list.add(menuModel1);
                     }
-
                 }
                 adapter.notifyDataSetChanged();
                 progressDialog.dismiss();

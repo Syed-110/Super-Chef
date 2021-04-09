@@ -5,11 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".Menu"
     android:id="@+id/menuframe">
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search for anything..."
-            android:paddingStart="10dp"
+            android:paddingStart="20dp"
             android:backgroundTint="@color/teal_200"
             android:textColorHint="@color/black"
             android:textStyle="italic"
@@ -29,14 +25,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/menurecycler"
             android:layout_below="@+id/txt_searchtext"/>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="40dp"
-            android:src="@drawable/ic_baseline_upload"
-            android:contentDescription="TODO" />
     </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="280dp"
+        android:src="@drawable/ic_baseline_upload" />
 </FrameLayout>

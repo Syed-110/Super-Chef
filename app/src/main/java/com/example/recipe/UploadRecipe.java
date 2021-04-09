@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class UploadRecipe extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upload_recipe);
         imageView=findViewById(R.id.iv_foodImage);
         name=findViewById(R.id.text_name);
@@ -90,7 +92,33 @@ public class UploadRecipe extends AppCompatActivity {
     }
 
     public void btnUploadImage(View view) {
-        uploadImage();
+        String name1=name.getText().toString().trim();
+        String cook=cook_time.getText().toString().trim();
+        String prep=prep_time.getText().toString().trim();
+        String tot=total_time.getText().toString().trim();
+        String ingr=ing.getText().toString().trim();
+        String inst=ins.getText().toString().trim();
+        if(name1.isEmpty()){
+            name.setError("Name can't be empty");
+        }
+        else if(prep.isEmpty()){
+            prep_time.setError("Prepare time can't be empty");
+        }
+        else if(cook.isEmpty()){
+            cook_time.setError("Cook time can't be empty");
+        }
+        else if(tot.isEmpty()){
+            total_time.setError("Total time can't be empty");
+        }
+        else if(ingr.isEmpty()){
+            ing.setError("Ingredients can't be empty");
+        }
+        else if(inst.isEmpty()){
+            ins.setError("Instruction can't be empty");
+        }
+        else{
+            uploadImage();
+        }
     }
     public void uploadRecipe(){
         MenuModel menuModel=new MenuModel(

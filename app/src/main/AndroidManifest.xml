@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipe"
         tools:targetApi="m">
-        <activity android:name=".DeveloperActivity"></activity>
+        <activity android:name=".UpdateRecipe" />
+        <activity android:name=".DeveloperActivity" />
         <activity android:name=".UploadRecipe" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".ShowProfile" />

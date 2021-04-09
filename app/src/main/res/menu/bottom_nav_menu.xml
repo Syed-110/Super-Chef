@@ -10,10 +10,10 @@
         android:icon="@drawable/ic_home"
         android:title="@string/title_Menu" />
 
-    <item
-        android:id="@+id/navigation_favourites"
-        android:icon="@drawable/ic_baseline_favorite"
-        android:title="@string/title_favourites" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_favourites"-->
+<!--        android:icon="@drawable/ic_baseline_favorite"-->
+<!--        android:title="@string/title_favourites" />-->
 
     <item
         android:id="@+id/navigation_shoppinglist"

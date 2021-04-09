@@ -48,7 +48,7 @@ public class ShowProfile extends AppCompatActivity implements GoogleApiClient.On
         youremail.setText(e);
         yourname.setText(f);
         logout=findViewById(R.id.logout);
-        change=findViewById(R.id.change);
+//        change=findViewById(R.id.change);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -94,15 +94,15 @@ public class ShowProfile extends AppCompatActivity implements GoogleApiClient.On
                     });
                 }
             });
-            change.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),Profile.class);
-                    intent.putExtra("fullname",yourname.getText().toString());
-                    intent.putExtra("email",youremail.getText().toString());
-                    startActivity(intent);
-                }
-            });
+//            change.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent=new Intent(getApplicationContext(),Profile.class);
+//                    intent.putExtra("fullname",yourname.getText().toString());
+//                    intent.putExtra("email",youremail.getText().toString());
+//                    startActivity(intent);
+//                }
+//            });
         }
     }
 

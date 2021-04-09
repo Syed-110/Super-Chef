@@ -45,4 +45,5 @@
     <string name="change">Change Profile</string>
     <string name="yourname">Your Name</string>
     <string name="youremail">Your Email</string>
+    <string name="signup1">Sign Up</string>
 </resources>

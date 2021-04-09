@@ -1,19 +1,32 @@
 package com.example.recipe;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Favourites#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Favourites extends Fragment {
+public class Favourites extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+    private LinearLayout animatelinearlay;
+    Button signup;
+    FirebaseUser firebaseUser;
+    private FirebaseAuth mauth=FirebaseAuth.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +72,30 @@ public class Favourites extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        View v= inflater.inflate(R.layout.fragment_favourites, container, false);
+        animatelinearlay=v.findViewById(R.id.nocontlinearlay);
+        firebaseUser=mauth.getCurrentUser();
+        if (firebaseUser != null) {
+            if(firebaseUser.isAnonymous()){
+                animatelinearlay.setVisibility(View.VISIBLE);
+            }
+            else {
+                animatelinearlay.setVisibility(View.GONE);
+            }
+        }
+        signup=v.findViewById(R.id.signup);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent i1 = new Intent(getContext(), MainActivity.class);
+               startActivity(i1);
+            }
+        });
+        return v;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getContext(), "Connection Failed", Toast.LENGTH_SHORT).show();
     }
 }

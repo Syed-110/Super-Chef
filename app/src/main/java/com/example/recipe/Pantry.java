@@ -103,11 +103,11 @@ public class Pantry extends Fragment implements  DatatransferInterface{
         listitem.add(new ListItem("Meat",new String[]{"Chicken breast","bacon", "sausage", "chicken drumsticks", "pork",
                 "minced chicken", "chicken thighs", "chicken lollipop", "chicken gizzard", "chicken liver", "minced goat",
                 "goat boneless", "mutton livers", "goat ribs and chops", "lamb ribs and chop", "goat shoulder", "mutton kidney"},getContext().getDrawable(R.drawable.meat)));
-        listitem.add(new ListItem("Sea Food",new String[]{"White pomfret", "seer", "indian salmon", "rohu", "basa", "catla","mackerel",
-                "squid", "prawn", "sea bahh", "pink perch", "red fish snapper", "butter fish", "king fish", "yellow sin tuna", "hilsa",
-                "bata", "lady fish", "black pomfret", "blue crab", "bombay duck", "tilapia", "marine cat fish", "kajoli", "murrell",
-                "tiger prawn", "silver croaker", "blue spotted sting ray", "oyster", "lobster"
-        },getContext().getDrawable(R.drawable.seafood)));
+//        listitem.add(new ListItem("Sea Food",new String[]{"White pomfret", "seer", "indian salmon", "rohu", "basa", "catla","mackerel",
+//                "squid", "prawn", "sea bahh", "pink perch", "red fish snapper", "butter fish", "king fish", "yellow sin tuna", "hilsa",
+//                "bata", "lady fish", "black pomfret", "blue crab", "bombay duck", "tilapia", "marine cat fish", "kajoli", "murrell",
+//                "tiger prawn", "silver croaker", "blue spotted sting ray", "oyster", "lobster"
+//        },getContext().getDrawable(R.drawable.seafood)));
         listitem.add(new ListItem("Dairy",new String[]{ "Milk", "butter", "yogurt", "milk powder", "cream", "malai", "curd",
                 "butter milk", "paneer", "khoya", "skimmed milk", "soya milk", "soya paneer", "mozzarella", "parmesan", "ricotta",
                 "feta"
@@ -118,7 +118,7 @@ public class Pantry extends Fragment implements  DatatransferInterface{
         },getContext().getDrawable(R.drawable.vegetables)));
         listitem.add(new ListItem("Fruits",new String[]{"Coconut", "orange", "apple", "banana", "lime", "strawberry", "blueberry", "raspberry",
                 "grapes", "peach", "mango", "pear", "blackberry", "date", "cherry", "kiwi", "dragon fruit", "pomegranate", "papaya",
-                "guava", "passion fruit", "muskmelon", "watermelon", "plum", "fig"
+                "guava", "passion fruit", "muskmelon", "watermelon", "plum", "fig (anjeer)"
         },getContext().getDrawable(R.drawable.fruits)));
         listitem.add(new ListItem("Baking And Grains",new String[]{"Rice", "pasta", "wheat", "flour", "maida", "bread", "baking powder",
                 "baking soda", "corn starch", "bread crumb", "cocoa", "yeast", "brown rice", "pizza dough", "rice flour", "gram flour",
@@ -129,7 +129,7 @@ public class Pantry extends Fragment implements  DatatransferInterface{
         listitem.add(new ListItem("Oils",new String[]{"Vegetable oil", "coconut oil", "peanut oil", "sunflower oil", "almond oil", "soya oil",
                 "olive oil", "soyabean oil", "walnut oil"
         },getContext().getDrawable(R.drawable.oils)));
-        listitem.add(new ListItem("Nuts",new String[]{ "Peanut", "cashew", "almond", "walnut", "pistachios", "fried fig", "apricot",
+        listitem.add(new ListItem("Nuts",new String[]{ "Peanut", "cashew", "almond", "walnut", "pistachios", "fried fig(anjeer)", "apricot",
                 "hazelnut", "raisins", "black date"
         },getContext().getDrawable(R.drawable.nuts)));
         radp=new MyAdapter(getActivity(),listitem,this);

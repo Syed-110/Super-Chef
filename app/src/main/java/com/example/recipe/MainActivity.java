@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(account!=null) {
             Log.d("emailid","email"+account.getEmail());
-            Toast.makeText(this, "Email: "+account.getEmail(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Email: "+account.getEmail(), Toast.LENGTH_SHORT).show();
 //            Log.d("errormsg","from start of MainActivity Curreuser"+curreUser.getEmail());
             startActivity(new Intent(getApplicationContext(), Ingredients.class));
         }
